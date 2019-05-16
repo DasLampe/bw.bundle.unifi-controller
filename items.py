@@ -1,14 +1,3 @@
-pkg_apt = {
-    'unifi': {
-        'needs': [
-            'action:apt_update_unifi',
-        ],
-        'triggers': [
-            'svc_systemd:unifi:restart',
-        ],
-    }
-}
-
 svc_systemd = {
     'unifi': {
         'needs': [
