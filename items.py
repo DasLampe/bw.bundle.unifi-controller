@@ -14,8 +14,9 @@ files = {
 }
 
 actions = {
-    'download_unifi_gpg': {
-        'command': 'sudo wget -O /etc/apt/trusted.gpg.d/unifi-repo.gpg https://dl.ubnt.com/unifi/unifi-repo.gpg',
+    'import_unifi_gpg': {
+        'command': 'curl -L https://dl.ubnt.com/unifi/unifi-repo.gpg | apt-key add -',
+        'unless': 'apt-key list | grep "UniFi Developers <unifi-dev@ubnt.com>" &>/dev/null',
         'triggers': [
             'action:apt_update_unifi',
         ],
