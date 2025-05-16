@@ -15,11 +15,14 @@ files = {
 
 actions = {
     'import_unifi_gpg': {
-        'command': 'curl -L https://dl.ubnt.com/unifi/unifi-repo.gpg | apt-key add -',
-        'unless': 'apt-key list | grep "UniFi Developers <unifi-dev@ubnt.com>" &>/dev/null',
+        'command': 'curl -L https://dl.ubnt.com/unifi/unifi-repo.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/ubnt.gpg',
+        'unless': 'test -f /etc/apt/trusted.gpg.d/ubnt.gpg',
         'triggers': [
             'action:apt_update_unifi',
         ],
+        'needs': [
+            'pkg_apt:gnupg',
+        ]
     },
     'apt_update_unifi': {
         'command': 'apt-get update',
